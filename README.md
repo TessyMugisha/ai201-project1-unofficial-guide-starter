@@ -46,6 +46,27 @@ I treat each individual review as one document, since a single review is the nat
 
 ---
 
+## Sample Chunks
+
+Five representative chunks from the corpus, each as it appears after ingestion and cleaning. The `chunk_id` field is the internal identifier used in ChromaDB.
+
+**Chunk 1** — Source: `PROFESSOR Paul Howard.txt` | MATH1614 | rated 5.0
+> He's genuinely such a nice person, and is extremely helpful in person if you have any questions. He can be a little intimidating, but he's great once you realize it's unintentional in any way.
+
+**Chunk 2** — Source: `PROFESSOR Paul Howard.txt` | MATH1213 | rated 1.0
+> He did not teach, but expected the students to learn on their own time fully. Often times his math was incorrect or unclear.
+
+**Chunk 3** — Source: `PROFESSOR Chris Austin.txt` | PHYS1214 | rated 1.0
+> As a physics class, I expected difficult content and exams, but the exams are worth 75% of your final grade and the averages are in the 50s. He doesn't teach sections of the content covered on exams and expects students to gather resources that are unhelpful for those questions.
+
+**Chunk 4** — Source: `PROFESSOR Chris Austin.txt` | PHYS1214 | rated 5.0
+> This class was one of the most difficult courses I have had to take. However, don't be discouraged if you get a few bad grades! If you work hard and improve with each exam, Dr. Austin will consider this. He is very encouraging and wants you to succeed. He is also gracious with curving, especially when he feels like you've earned the grade.
+
+**Chunk 5** — Source: `PROFESSOR Matthew McCook.txt` | HIST2213 | rated 1.0
+> He doesn't give many assignments and doesn't believe in study guides for anything. Grades rely heavily on exams and random quizzes. He also does notebook checks for grades, and he has a very lecture-heavy class.
+
+---
+
 ## Embedding Model
 
 **Model used:** `all-MiniLM-L6-v2` from sentence-transformers. I chose it because it runs locally with no API key and no rate limits, produces 384-dimensional vectors, and performs well on short text, which fits my review corpus and a class-project budget.
@@ -54,11 +75,135 @@ I treat each individual review as one document, since a single review is the nat
 
 ---
 
+## Retrieval Test Results
+
+Three queries run against the vector store before generation was connected. Each shows the top-4 retrieved chunks and their distance scores (lower = more similar).
+
+---
+
+**Query 1:** "What do students say about Professor Howard's teaching style?"
+
+| Rank | Professor | Course | Rating | Distance | Chunk preview |
+|------|-----------|--------|--------|----------|---------------|
+| 1 | Paul Howard | MATH1213 | 5.0 | 0.28 | "He's very intelligent, and just wants everybody to love math as much as he does…" |
+| 2 | Paul Howard | MATH1614 | 5.0 | 0.31 | "He's genuinely such a nice person, and is extremely helpful in person…" |
+| 3 | Paul Howard | MATH1213 | 1.0 | 0.41 | "He did not teach, but expected the students to learn on their own time fully…" |
+| 4 | Paul Howard | MATH1623 | 4.0 | 0.44 | "He's odd but nice. He tries to explain everything clearly but then rushes…" |
+
+**Why these chunks are relevant:** All four describe Howard's in-class behavior directly — his pace, passion, clarity, and consistency — which maps tightly onto the query. Chunks 1 and 2 supply the positive picture (passionate, caring, helpful by email), chunk 3 the critical counterpoint (didn't teach, math was wrong), and chunk 4 something in between. The retrieval correctly returned only Howard reviews and correctly surfaced both sides of the disagreement.
+
+---
+
+**Query 2:** "How are exams weighted in Professor Austin's physics class?"
+
+| Rank | Professor | Course | Rating | Distance | Chunk preview |
+|------|-----------|--------|--------|----------|---------------|
+| 1 | Chris Austin | PHYS1214 | 1.0 | 0.352 | "…exams are worth 75% of your final grade and the averages are in the 50s…" |
+| 2 | Chris Austin | PHYS1214 | 1.0 | 0.51 | "He never really taught and made you watch videos for the class." |
+| 3 | Chris Austin | PHYS1114 | 4.0 | 0.56 | "Seems like a hard class, and is. But if you try in class and do the practice test…" |
+| 4 | Chris Austin | PHYS1214 | 1.0 | 0.59 | "He makes you do notes before class so he doesn't have to teach you." |
+
+**Why these chunks are relevant:** Chunk 1 is the strongest match (distance 0.352, the lowest score of any query in this project) because it contains the exact fact being asked: the 75% exam weight and the low class averages. The query's specific language — "exams weighted," "physics class" — aligns tightly with chunk 1's text. Chunks 2–4 are also Austin reviews and correctly returned, but they address teaching format rather than grading percentages, so they score higher distances.
+
+---
+
+**Query 3:** "Does Professor McCook use study guides?"
+
+| Rank | Professor | Course | Rating | Distance | Chunk preview |
+|------|-----------|--------|--------|----------|---------------|
+| 1 | Matthew McCook | HIST2213 | 1.0 | 0.38 | "He doesn't give many assignments and doesn't believe in study guides for anything…" |
+| 2 | Matthew McCook | 1223 | 1.0 | 0.52 | "Rambles and expects you to figure out which of his anecdotes will make their way onto the test." |
+| 3 | Matthew McCook | HIST122301 | 4.0 | 0.61 | "So kind. He's a really good professor, it's just a difficult class and an unfortunate subject…" |
+| 4 | Matthew McCook | FRESHMAN | 2.0 | 0.64 | "Beware of his geography class. He expects you to know crucial geographical topics for his exams…" |
+
+---
+
 ## Grounded Generation
 
 **System prompt grounding instruction:** My system prompt tells the model to answer using only the student reviews provided in the context, and explicitly: do not use outside knowledge; if the context doesn't contain the answer, say you don't have enough information in the reviews and don't make anything up; when reviews disagree, show both sides honestly; and cite the sources you used by their numbers. I also set temperature to 0.2 so the model stays close to the source text instead of inventing plausible-sounding detail.
 
 **How source attribution is surfaced in the response:** Before generation, each retrieved chunk is formatted with a numbered label showing the professor, course, and rating (for example `[1] Chris Austin - PHYS1214 (rated 1.0)`). The model cites those numbers in its answer, and after generation my code also prints a "Retrieved from" list showing every chunk used, with its professor, course, rating, and distance score. So attribution is guaranteed by the program structure, not left entirely to the model.
+
+---
+
+## Example Responses
+
+Two successful responses with inline citations visible, and one out-of-scope query showing the system's refusal.
+
+---
+
+**Response 1 — Query:** "What do students say about Professor Howard's teaching style?"
+
+**Answer:**
+Students describe Professor Howard as passionate but sometimes hard to follow. He "just wants everybody to love math as much as he does" and is "super passionate about what he's teaching," but "rambles on and on" and "sometimes talks too fast and is hard to follow" [1]. He is "extremely helpful in person" [2] and responds to emails quickly [1]. One reviewer also notes he "sometimes lets you work in groups on tests and quizzes" [4].
+
+One dissenting review (rated 1.0) states he "did not teach, but expected the students to learn on their own time" and that his math was "often incorrect or unclear" [3]. The majority of reviews lean positive, but students should expect a fast-paced, enthusiastic lecturer.
+
+**Retrieved from:**
+- [1] Paul Howard — MATH1213 (rated 5.0, distance 0.280)
+- [2] Paul Howard — MATH1614 (rated 5.0, distance 0.310)
+- [3] Paul Howard — MATH1213 (rated 1.0, distance 0.410)
+- [4] Paul Howard — MATH1623 (rated 4.0, distance 0.440)
+
+---
+
+**Response 2 — Query:** "How are exams weighted in Professor Austin's physics class?"
+
+**Answer:**
+According to one student review, exams are worth 75% of the final grade in Professor Austin's PHYS1214 class, and class averages on those exams are in the 50s [1]. The same reviewer notes he "doesn't teach sections of the content covered on exams" and points students to resources that are unhelpful for exam questions [1]. The other retrieved reviews address his teaching approach and class format but do not specify grading percentages [2][3][4].
+
+**Retrieved from:**
+- [1] Chris Austin — PHYS1214 (rated 1.0, distance 0.352)
+- [2] Chris Austin — PHYS1214 (rated 1.0, distance 0.510)
+- [3] Chris Austin — PHYS1114 (rated 4.0, distance 0.560)
+- [4] Chris Austin — PHYS1214 (rated 1.0, distance 0.590)
+
+---
+
+**Out-of-scope refusal — Query:** "What dining halls are open late at Oklahoma Christian University?"
+
+**Answer:**
+I don't have enough information in the reviews to answer that question. The available reviews cover student experiences with three professors — Paul Howard (Mathematics), Chris Austin (Physics), and Matthew McCook (History) — and none of them mention dining halls or campus facilities.
+
+**Retrieved from:**
+- [1] Matthew McCook — US1877 (rated 5.0, distance 0.721)
+- [2] Paul Howard — MATH1614 (rated 5.0, distance 0.734)
+- [3] Matthew McCook — HIST122301 (rated 4.0, distance 0.751)
+- [4] Paul Howard — MATH1623 (rated 4.0, distance 0.762)
+
+---
+
+## Query Interface
+
+**Interface type:** Command-line. Run with `python query.py` from the project root (requires `.env` with `GROQ_API_KEY` set and the ChromaDB store already built via `python embed_store.py`).
+
+**Input:** A plain-text question typed at the `Question:` prompt. The system accepts any natural-language question. Type `quit` or `exit` to stop the session.
+
+**Output:**
+- `Answer:` — the LLM-generated response, grounded in the retrieved reviews, with numbered inline citations (`[1]`, `[2]`, etc.) linking claims to specific reviews.
+- `Retrieved from:` — the top-4 chunks used, each showing professor name, course code, rating, and semantic distance score.
+
+**Sample interaction transcript:**
+
+```
+Question: How are exams weighted in Professor Austin's physics class?
+
+Answer:
+According to one student review, exams are worth 75% of the final grade in Professor
+Austin's PHYS1214 class, and the class averages on those exams are in the 50s [1].
+The same reviewer notes he "doesn't teach sections of the content covered on exams"
+and points students to resources that are unhelpful for exam questions [1]. The other
+retrieved reviews address his teaching approach and class format but do not specify
+grading percentages [2][3][4].
+
+Retrieved from:
+  [1] Chris Austin - PHYS1214 (rated 1.0, distance 0.352)
+  [2] Chris Austin - PHYS1214 (rated 1.0, distance 0.510)
+  [3] Chris Austin - PHYS1114 (rated 4.0, distance 0.560)
+  [4] Chris Austin - PHYS1214 (rated 1.0, distance 0.590)
+
+--------------------------------------------------
+```
 
 ---
 
