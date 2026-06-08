@@ -1,0 +1,45 @@
+PROFESSOR: Matthew McCook
+DEPARTMENT: History
+SCHOOL: Oklahoma Christian University
+SOURCE: Rate My Professors
+---
+RATING: 1.0
+DIFFICULTY: 4.0
+DATE: 2025-12-01
+COURSE: HIST2213
+GRADE: D
+WOULD_TAKE_AGAIN: unknown
+REVIEW: He doesn't give many assignments and doesn't believe in study guides for anything. Grades rely heavily on exams and random quizzes. He also does notebook checks for grades, and he has a very lecture-heavy class. Tags: tough grader, get ready to read, beware of pop quizzes.
+---
+RATING: 1.0
+DIFFICULTY: 5.0
+DATE: 2025-11-02
+COURSE: 1223
+GRADE: B
+WOULD_TAKE_AGAIN: unknown
+REVIEW: Rambles and expects you to figure out which of his anecdotes will make their way onto the test. Tags: tough grader, lecture heavy.
+---
+RATING: 5.0
+DIFFICULTY: 1.0
+DATE: 2025-10-02
+COURSE: US1877
+GRADE: A
+WOULD_TAKE_AGAIN: Yes
+REVIEW: I would highly recommend this class. He's a great teacher and very funny, easy class. Tags: inspirational, hilarious, caring.
+---
+RATING: 4.0
+DIFFICULTY: 4.0
+DATE: 2025-10-01
+COURSE: HIST122301
+GRADE: C
+WOULD_TAKE_AGAIN: Yes
+REVIEW: So kind. He's a really good professor, it's just a difficult class and an unfortunate subject. Genuinely a nice man and he's super funny for no reason. Grades on a really nice curve too. Tags: get ready to read, beware of pop quizzes.
+---
+RATING: 2.0
+DIFFICULTY: 4.0
+DATE: 2024-12-05
+COURSE: FRESHMAN
+GRADE: B
+WOULD_TAKE_AGAIN: unknown
+REVIEW: Beware of his geography class. He expects you to know crucial geographical topics for his exams but doesn't really teach it during class. Our class was averaging 50s every exam. Be ready to study. He's very fun but struggled to teach us the actual material. Tags: lecture heavy, test heavy, accessible outside class.
+---

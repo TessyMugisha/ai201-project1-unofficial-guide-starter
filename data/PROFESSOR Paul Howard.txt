@@ -1,0 +1,45 @@
+PROFESSOR: Paul Howard
+DEPARTMENT: Mathematics
+SCHOOL: Oklahoma Christian University
+SOURCE: Rate My Professors
+---
+RATING: 5.0
+DIFFICULTY: 2.0
+DATE: 2025-05-04
+COURSE: MATH1614
+GRADE: B+
+WOULD_TAKE_AGAIN: Yes
+REVIEW: He's genuinely such a nice person, and is extremely helpful in person if you have any questions. He can be a little intimidating, but he's great once you realize it's unintentional in any way. Tags: gives good feedback, caring, test heavy.
+---
+RATING: 5.0
+DIFFICULTY: 3.0
+DATE: 2024-12-05
+COURSE: MATH1213
+GRADE: A
+WOULD_TAKE_AGAIN: Yes
+REVIEW: He's very intelligent, and just wants everybody to love math as much as he does. He's super passionate about what he's teaching, so he rambles on and on. Sometimes he talks too fast and is hard to follow. But he's pretty fast at replying to emails, and always tries to make sure we understand the material. Tags: lots of homework, caring.
+---
+RATING: 4.0
+DIFFICULTY: 2.0
+DATE: 2024-12-02
+COURSE: MATH1623
+GRADE: A
+WOULD_TAKE_AGAIN: Yes
+REVIEW: Good professor who is really into math! Tags: lots of homework, accessible outside class.
+---
+RATING: 4.0
+DIFFICULTY: 2.0
+DATE: 2024-12-02
+COURSE: MATH1623
+GRADE: unknown
+WOULD_TAKE_AGAIN: Yes
+REVIEW: He's odd but nice. He tries to explain everything clearly but then rushes and makes mistakes that he corrects. Lots of homework in Applied Math. Sometimes lets you work in groups on tests and quizzes. Easy to understand. Tags: lots of homework, accessible outside class.
+---
+RATING: 1.0
+DIFFICULTY: 1.0
+DATE: 2023-11-11
+COURSE: MATH1213
+GRADE: A
+WOULD_TAKE_AGAIN: unknown
+REVIEW: He did not teach, but expected the students to learn on their own time fully. Often times his math was incorrect or unclear.
+---

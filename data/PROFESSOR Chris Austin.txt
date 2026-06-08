@@ -1,0 +1,45 @@
+PROFESSOR: Chris Austin
+DEPARTMENT: Physics
+SCHOOL: Oklahoma Christian University
+SOURCE: Rate My Professors
+---
+RATING: 4.0
+DIFFICULTY: 3.0
+DATE: 2026-04-24
+COURSE: PHYS1114
+GRADE: A-
+WOULD_TAKE_AGAIN: Yes
+REVIEW: Seems like a hard class, and is. But if you try in class and do the practice test, his tests aren't that hard. Putting in the time does make a difference in this class. Funny guy too. Tags: participation matters, extra credit, hilarious.
+---
+RATING: 1.0
+DIFFICULTY: 5.0
+DATE: 2025-10-08
+COURSE: PHYS1214
+GRADE: B+
+WOULD_TAKE_AGAIN: unknown
+REVIEW: He never really taught and made you watch videos for the class. Tags: hilarious, test heavy, online savvy.
+---
+RATING: 1.0
+DIFFICULTY: 5.0
+DATE: 2025-03-23
+COURSE: PHYS1214
+GRADE: A-
+WOULD_TAKE_AGAIN: unknown
+REVIEW: As a physics class, I expected difficult content and exams, but the exams are worth 75% of your final grade and the averages are in the 50s. He doesn't teach sections of the content covered on exams and expects students to gather resources that are unhelpful for those questions. Tags: tough grader, lots of homework, test heavy.
+---
+RATING: 1.0
+DIFFICULTY: 5.0
+DATE: 2024-11-28
+COURSE: PHYS1214
+GRADE: B+
+WOULD_TAKE_AGAIN: unknown
+REVIEW: He makes you do notes before class so he doesn't have to teach you. Then gives you examples that you solve yourself. Tags: tough grader, group projects, lots of homework.
+---
+RATING: 5.0
+DIFFICULTY: 4.0
+DATE: 2017-05-19
+COURSE: PHYS1214
+GRADE: A
+WOULD_TAKE_AGAIN: Yes
+REVIEW: This class was one of the most difficult courses I have had to take. However, don't be discouraged if you get a few bad grades! If you work hard and improve with each exam, Dr. Austin will consider this. He is very encouraging and wants you to succeed. He is also gracious with curving, especially when he feels like you've earned the grade. Tags: gives good feedback, respected, test heavy.
+---
